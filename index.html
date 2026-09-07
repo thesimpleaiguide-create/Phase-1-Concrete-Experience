@@ -40,11 +40,14 @@
         }
         .patient-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 25px -5px rgba(12, 35, 64, 0.15);
+            box-shadow: 0 10px 25px -5px rgba(12, 35, 64, 0.18);
         }
         .patient-card-active {
             border-color: #FE5000 !important;
-            box-shadow: 0 0 0 3px rgba(254, 80, 0, 0.25), 0 12px 28px -6px rgba(12, 35, 64, 0.2) !important;
+            box-shadow: 0 0 0 3px rgba(254, 80, 0, 0.28), 0 12px 28px -6px rgba(12, 35, 64, 0.22) !important;
+        }
+        .video-playing .card-overlay-gradient {
+            background: linear-gradient(to top, rgba(12, 35, 64, 0.85) 0%, rgba(12, 35, 64, 0.1) 40%, transparent 100%) !important;
         }
     </style>
 </head>
@@ -59,7 +62,7 @@
                 <span class="text-xs font-bold uppercase tracking-wider text-navy">Phase 1: Concrete Experience • Three Opening Encounters</span>
             </div>
             <div class="text-[11px] font-medium text-slate/60 hidden sm:block">
-                Tap a patient card to trigger the first 10 seconds
+                Tap any patient card to inspect their reaction and play their video
             </div>
         </div>
 
@@ -69,25 +72,43 @@
             <!-- Top Row: Call 1 (Brenda) Centered -->
             <div class="flex justify-center w-full">
                 <div onclick="selectPatient(1)" id="card-1"
-                     class="patient-card patient-card-active relative w-full sm:w-80 md:w-84 h-52 sm:h-56 rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy/5 shadow-md">
-                    <img src="./call1_brenda.jpeg" 
-                         onerror="if (!this.dataset.retried) { this.dataset.retried = 1; this.src='./call1_brenda.JPEG'; } else { this.onerror=null; this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=700&q=80'; }"
-                         alt="Call 1: Brenda" 
-                         class="w-full h-full object-cover object-top">
-                    <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/30 to-transparent"></div>
+                     class="patient-card patient-card-active group relative w-full sm:w-80 md:w-84 h-56 sm:h-60 rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-md">
                     
-                    <!-- Text Overlay -->
-                    <div class="absolute top-3 left-3">
-                        <span class="bg-orange text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-sm">
-                            Call 01
+                    <!-- Video Element with Poster Fallback -->
+                    <video id="video-1" 
+                           playsinline 
+                           webkit-playsinline 
+                           preload="metadata"
+                           poster="./call1_brenda.jpeg"
+                           class="w-full h-full object-cover object-center transition-opacity duration-300">
+                        <source src="./call1_brenda.mp4" type="video/mp4">
+                    </video>
+
+                    <div class="card-overlay-gradient absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/35 to-transparent pointer-events-none transition-all duration-300"></div>
+                    
+                    <!-- Top Badge Overlay -->
+                    <div class="absolute top-3 left-3 flex items-center space-x-1.5 pointer-events-none">
+                        <span class="bg-orange text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-sm flex items-center space-x-1">
+                            <span>Call 01</span>
+                        </span>
+                        <span id="videoPlayingBadge-1" class="hidden bg-navy/80 backdrop-blur-xs text-white text-[9px] font-semibold px-2 py-1 rounded-md border border-white/20">
+                            PLAYING
                         </span>
                     </div>
 
-                    <div class="absolute bottom-3 left-3 right-3 text-white">
-                        <div class="text-sm sm:text-base font-bold leading-tight">Brenda • Weight Management</div>
-                        <div class="text-[11px] text-ice/85 mt-0.5 flex items-center justify-between">
+                    <!-- Quick Play Overlay Icon -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-90 transition-opacity" id="hoverPlay-1">
+                        <div class="w-12 h-12 rounded-full bg-navy/80 text-white flex items-center justify-center backdrop-blur-xs border border-white/20 shadow-lg">
+                            <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Details Overlay -->
+                    <div class="absolute bottom-3 left-3 right-3 text-white pointer-events-none">
+                        <div class="text-sm sm:text-base font-bold leading-tight drop-shadow-sm">Brenda • Weight Management</div>
+                        <div class="text-[11px] text-ice/90 mt-0.5 flex items-center justify-between">
                             <span>Unsolicited Outreach Flag</span>
-                            <span class="text-orange font-semibold">Tap to Load</span>
+                            <span class="text-orange font-semibold tracking-wide">Active</span>
                         </div>
                     </div>
                 </div>
@@ -98,23 +119,39 @@
 
                 <!-- Left: Call 2 (David) -->
                 <div onclick="selectPatient(2)" id="card-2"
-                     class="patient-card relative w-full h-56 sm:h-64 md:h-full min-h-[220px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy/5 shadow-md">
-                    <img src="./call2_david.jpeg" 
-                         onerror="if (!this.dataset.retried) { this.dataset.retried = 1; this.src='./call2_david.JPEG'; } else { this.onerror=null; this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80'; }"
-                         alt="Call 2: David" 
-                         class="w-full h-full object-cover object-center">
-                    <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/30 to-transparent"></div>
+                     class="patient-card group relative w-full h-56 sm:h-64 md:h-full min-h-[230px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-md">
+                    
+                    <video id="video-2" 
+                           playsinline 
+                           webkit-playsinline 
+                           preload="metadata"
+                           poster="./call2_david.jpeg"
+                           class="w-full h-full object-cover object-center transition-opacity duration-300">
+                        <source src="./call2_david.mp4" type="video/mp4">
+                    </video>
+
+                    <div class="card-overlay-gradient absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/35 to-transparent pointer-events-none transition-all duration-300"></div>
                     
                     <!-- Text Overlay -->
-                    <div class="absolute top-3 left-3">
+                    <div class="absolute top-3 left-3 flex items-center space-x-1.5 pointer-events-none">
                         <span class="bg-trust text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-sm">
                             Call 02
                         </span>
+                        <span id="videoPlayingBadge-2" class="hidden bg-navy/80 backdrop-blur-xs text-white text-[9px] font-semibold px-2 py-1 rounded-md border border-white/20">
+                            PLAYING
+                        </span>
                     </div>
 
-                    <div class="absolute bottom-3 left-3 right-3 text-white">
-                        <div class="text-sm sm:text-base font-bold leading-tight">David • Multimorbidity (LTC)</div>
-                        <div class="text-[11px] text-ice/85 mt-0.5 flex items-center justify-between">
+                    <!-- Quick Play Overlay Icon -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-90 transition-opacity" id="hoverPlay-2">
+                        <div class="w-12 h-12 rounded-full bg-navy/80 text-white flex items-center justify-center backdrop-blur-xs border border-white/20 shadow-lg">
+                            <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-3 left-3 right-3 text-white pointer-events-none">
+                        <div class="text-sm sm:text-base font-bold leading-tight drop-shadow-sm">David • Multimorbidity (LTC)</div>
+                        <div class="text-[11px] text-ice/90 mt-0.5 flex items-center justify-between">
                             <span>Care Coordinator Suspicion</span>
                             <span class="text-ice/90 font-semibold">Tap to Load</span>
                         </div>
@@ -122,40 +159,43 @@
                 </div>
 
                 <!-- Center: THE BOX IN BETWEEN (Interactive Telemetry & Reflex Logger) -->
-                <div class="bg-white border border-ice rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col justify-between min-h-[260px] md:min-h-[300px]">
+                <div class="bg-white border border-ice rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col justify-between min-h-[280px] md:min-h-[310px]">
                     
                     <div>
                         <!-- Active Call Label -->
                         <div class="flex items-center justify-between pb-2 mb-2 border-b border-ice/70">
-                            <span id="activeCallBadge" class="text-[10px] font-bold uppercase tracking-wider text-orange">
-                                Active Encounter
+                            <span id="activeCallBadge" class="text-[11px] font-bold uppercase tracking-wider text-orange">
+                                Call 01 • Brenda (Weight Management)
                             </span>
-                            <span id="activeCallTimer" class="font-mono text-xs text-slate/60">00:00 / 00:09</span>
+                            <span id="activeCallTimer" class="font-mono text-xs text-slate/60">00:00 / 00:10</span>
                         </div>
 
                         <!-- Spoken Quote Block -->
                         <div class="bg-slate-50 border-l-4 border-orange p-3 rounded-r-lg mb-3">
-                            <div class="text-[11px] font-bold uppercase tracking-wide text-slate/50 mb-1">
-                                Patient Pushback:
+                            <div class="text-[10px] font-bold uppercase tracking-wide text-slate/50 mb-1">
+                                Spoken Pushback:
                             </div>
                             <p id="activeQuote" class="text-xs sm:text-sm font-medium text-navy leading-relaxed italic">
                                 "Look... I'm not interested. My weight is my business. I don't know why you're calling me out of the blue, just take my name off whatever list you're looking at."
                             </p>
                         </div>
 
-                        <!-- Audio Playback Controls -->
-                        <div class="flex items-center space-x-3 mb-4">
+                        <!-- Playback Controls -->
+                        <div class="flex items-center space-x-3 mb-3">
                             <button id="playBtn" onclick="togglePlay()" 
-                                    class="w-10 h-10 rounded-full bg-navy hover:bg-trust text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm cursor-pointer shrink-0">
+                                    class="w-11 h-11 rounded-full bg-navy hover:bg-trust text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm cursor-pointer shrink-0">
                                 <svg id="playIcon" class="w-4 h-4 ml-0.5 fill-current" viewBox="0 0 24 24">
                                     <path d="M8 5v14l11-7z"/>
                                 </svg>
                             </button>
                             <div class="flex-1">
-                                <div class="w-full bg-ice/80 rounded-full h-2 overflow-hidden cursor-pointer" onclick="seekAudio(event)">
-                                    <div id="progressBar" class="bg-orange h-full w-0 transition-all duration-100"></div>
+                                <div class="w-full bg-ice/80 rounded-full h-2.5 overflow-hidden cursor-pointer" onclick="seekVideo(event)">
+                                    <div id="progressBar" class="bg-orange h-full w-0 transition-all duration-75"></div>
                                 </div>
-                                <div class="text-[10px] text-slate/50 mt-1">Click play to hear vocal cadence</div>
+                                <div class="text-[10px] text-slate/50 mt-1 flex justify-between">
+                                    <span>Watch facial micro-expressions & vocal cadence</span>
+                                    <span id="statusIndicator" class="font-medium text-slate/70">Ready</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -163,15 +203,15 @@
                     <!-- Reflex Choice Area -->
                     <div id="reflexContainer" class="pt-2 border-t border-ice/70">
                         <div id="reflexPrompt">
-                            <div class="text-xs font-bold text-navy mb-2">What is your immediate gut reaction?</div>
+                            <div class="text-xs font-bold text-navy mb-2">What is your immediate gut reflex?</div>
                             <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
-                                <button onclick="logReflex('Defend')" class="px-2 py-1.5 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center">
+                                <button onclick="logReflex('Defend')" class="px-2 py-2 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center cursor-pointer">
                                     Defend
                                 </button>
-                                <button onclick="logReflex('Retreat')" class="px-2 py-1.5 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center">
+                                <button onclick="logReflex('Retreat')" class="px-2 py-2 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center cursor-pointer">
                                     Retreat
                                 </button>
-                                <button onclick="logReflex('Freeze')" class="px-2 py-1.5 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center">
+                                <button onclick="logReflex('Freeze')" class="px-2 py-2 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center cursor-pointer">
                                     Freeze
                                 </button>
                             </div>
@@ -180,8 +220,8 @@
                         <!-- Debrief Feedback -->
                         <div id="reflexFeedback" class="hidden flex-col space-y-1.5">
                             <div class="text-[11px] font-bold text-orange uppercase tracking-wider flex items-center justify-between">
-                                <span>Reflex: <strong id="loggedName" class="text-navy"></strong></span>
-                                <button onclick="resetReflex()" class="text-[10px] underline text-trust font-normal cursor-pointer">Change</button>
+                                <span>Logged Reflex: <strong id="loggedName" class="text-navy"></strong></span>
+                                <button onclick="resetReflex()" class="text-[10px] underline text-trust font-normal cursor-pointer">Re-evaluate</button>
                             </div>
                             <p id="debriefText" class="text-[11px] sm:text-xs text-slate leading-snug"></p>
                         </div>
@@ -191,24 +231,40 @@
 
                 <!-- Right: Call 3 (Gemma) -->
                 <div onclick="selectPatient(3)" id="card-3"
-                     class="patient-card relative w-full h-56 sm:h-64 md:h-full min-h-[220px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy/5 shadow-md">
-                    <img src="./call3_gemma.jpeg" 
-                         onerror="if (!this.dataset.retried) { this.dataset.retried = 1; this.src='./call3_gemma.JPEG'; } else { this.onerror=null; this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=700&q=80'; }"
-                         alt="Call 3: Gemma" 
-                         class="w-full h-full object-cover object-top">
-                    <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/30 to-transparent"></div>
+                     class="patient-card group relative w-full h-56 sm:h-64 md:h-full min-h-[230px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-md">
+                    
+                    <video id="video-3" 
+                           playsinline 
+                           webkit-playsinline 
+                           preload="metadata"
+                           poster="./call3_gemma.jpeg"
+                           class="w-full h-full object-cover object-center transition-opacity duration-300">
+                        <source src="./call3_gemma.mp4" type="video/mp4">
+                    </video>
+
+                    <div class="card-overlay-gradient absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/35 to-transparent pointer-events-none transition-all duration-300"></div>
                     
                     <!-- Text Overlay -->
-                    <div class="absolute top-3 left-3">
+                    <div class="absolute top-3 left-3 flex items-center space-x-1.5 pointer-events-none">
                         <span class="bg-slate/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-sm">
                             Call 03
                         </span>
+                        <span id="videoPlayingBadge-3" class="hidden bg-navy/80 backdrop-blur-xs text-white text-[9px] font-semibold px-2 py-1 rounded-md border border-white/20">
+                            PLAYING
+                        </span>
                     </div>
 
-                    <div class="absolute bottom-3 left-3 right-3 text-white">
-                        <div class="text-sm sm:text-base font-bold leading-tight">Gemma • Lifestyle Audit</div>
-                        <div class="text-[11px] text-ice/85 mt-0.5 flex items-center justify-between">
-                            <span>Humiliation & Identity Crack</span>
+                    <!-- Quick Play Overlay Icon -->
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-90 transition-opacity" id="hoverPlay-3">
+                        <div class="w-12 h-12 rounded-full bg-navy/80 text-white flex items-center justify-center backdrop-blur-xs border border-white/20 shadow-lg">
+                            <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-3 left-3 right-3 text-white pointer-events-none">
+                        <div class="text-sm sm:text-base font-bold leading-tight drop-shadow-sm">Gemma • Lifestyle Audit</div>
+                        <div class="text-[11px] text-ice/90 mt-0.5 flex items-center justify-between">
+                            <span>Humiliation & Identity Threat</span>
                             <span class="text-ice/90 font-semibold">Tap to Load</span>
                         </div>
                     </div>
@@ -224,9 +280,10 @@
         const callsData = {
             1: {
                 title: "Call 01 • Brenda (Weight Management)",
-                audioSrc: "./HD_P1_02_Patient_Call1_Weight.wav",
-                quote: "\"Look... I'm not interested. My weight is my business. I don't know why you're calling me about this out of the blue, just take my name off whatever list you're looking at.\"",
-                duration: 9.0,
+                videoSrc: "./call1_brenda.mp4",
+                posterSrc: "./call1_brenda.jpeg",
+                quote: "\"Look... I'm not interested. My weight is my business. I don't know why you're calling me out of the blue, just take my name off whatever list you're looking at.\"",
+                duration: 10.0,
                 debriefs: {
                     Defend: "You instinctively felt the urge to explain that the practice flagged her for proactive care. Explaining clinical protocol sounds like an argument to someone feeling judged.",
                     Retreat: "You felt like apologising and logging 'Refused'. That avoids the immediate friction, but abandons her without care.",
@@ -235,9 +292,10 @@
             },
             2: {
                 title: "Call 02 • David (Multimorbidity LTC)",
-                audioSrc: "./HD_P1_03_Patient_Call2_LTC.wav",
-                quote: "\"Hang on a minute. A care coordinator? What is that? I've been seeing Dr. Evans for fifteen years. Now I'm passed off to someone who isn't even a doctor? I want my GP.\"",
-                duration: 11.5,
+                videoSrc: "./call2_david.mp4",
+                posterSrc: "./call2_david.jpeg",
+                quote: "\"Hang on a minute. A care coordinator? What is that? I've seen Dr. Evans for fifteen years. Now I'm passed off to someone who isn't even a doctor? I want my GP.\"",
+                duration: 10.0,
                 debriefs: {
                     Defend: "You wanted to justify your credentials or role. David is afraid of losing access to the doctor he trusts; debating credentials increases that fear.",
                     Retreat: "You wanted to offer to put him back on the standard GP queue. It ends the call smoothly, but bypasses multidisciplinary support.",
@@ -246,9 +304,10 @@
             },
             3: {
                 title: "Call 03 • Gemma (Lifestyle Audit / Shame)",
-                audioSrc: "./HD_P1_04_Patient_Call3_Shame.wav",
+                videoSrc: "./call3_gemma.mp4",
+                posterSrc: "./call3_gemma.jpeg",
                 quote: "\"I can't believe this... Is this what the surgery does now? Monitors what I eat? This is completely humiliating. I work full time and you're treating me like a child!\"",
-                duration: 9.8,
+                duration: 10.0,
                 debriefs: {
                     Defend: "You wanted to reassure her that 'we aren't judging you.' Denying someone's shame often makes them feel even more patronised.",
                     Retreat: "You wanted to hang up because her emotional crack felt painful. Shame frequently hides behind angry defiance.",
@@ -258,78 +317,136 @@
         };
 
         let currentId = 1;
-        let audioPlayer = new Audio();
         let isPlaying = false;
         let ticker = null;
 
+        function getActiveVideo() {
+            return document.getElementById(`video-${currentId}`);
+        }
+
         function selectPatient(id) {
+            if (currentId !== id) {
+                pauseActiveVideo();
+                const prevVideo = getActiveVideo();
+                if (prevVideo) {
+                    prevVideo.currentTime = 0;
+                }
+            }
+
             currentId = id;
             const data = callsData[id];
+            const activeVideo = getActiveVideo();
 
-            // Update card borders
+            // Update card active classes
             [1, 2, 3].forEach(i => {
-                const el = document.getElementById(`card-${i}`);
-                if (i === id) el.classList.add('patient-card-active');
-                else el.classList.remove('patient-card-active');
+                const card = document.getElementById(`card-${i}`);
+                if (i === id) {
+                    card.classList.add('patient-card-active');
+                    card.querySelector('.text-orange')?.classList.remove('text-ice/90');
+                    card.querySelector('.text-orange')?.classList.add('text-orange');
+                } else {
+                    card.classList.remove('patient-card-active');
+                }
             });
 
             // Update Center Box Telemetry
             document.getElementById('activeCallBadge').innerText = data.title;
             document.getElementById('activeQuote').innerText = data.quote;
             
-            // Audio reset
-            pauseAudio();
-            audioPlayer.src = data.audioSrc;
             document.getElementById('progressBar').style.width = '0%';
-            document.getElementById('activeCallTimer').innerText = `00:00 / ${formatTime(data.duration)}`;
+            const dur = activeVideo && activeVideo.duration && !isNaN(activeVideo.duration) ? activeVideo.duration : data.duration;
+            document.getElementById('activeCallTimer').innerText = `00:00 / ${formatTime(dur)}`;
+            document.getElementById('statusIndicator').innerText = "Ready to Play";
 
             resetReflex();
         }
 
         function togglePlay() {
-            if (isPlaying) pauseAudio();
-            else playAudio();
+            if (isPlaying) {
+                pauseActiveVideo();
+            } else {
+                playActiveVideo();
+            }
         }
 
-        function playAudio() {
+        function playActiveVideo() {
+            const video = getActiveVideo();
+            if (!video) return;
+
+            // Pause other videos if any were running
+            [1, 2, 3].forEach(i => {
+                if (i !== currentId) {
+                    const other = document.getElementById(`video-${i}`);
+                    if (other) {
+                        other.pause();
+                        other.currentTime = 0;
+                    }
+                    document.getElementById(`card-${i}`).classList.remove('video-playing');
+                    document.getElementById(`videoPlayingBadge-${i}`)?.classList.add('hidden');
+                }
+            });
+
             isPlaying = true;
             document.getElementById('playIcon').innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-            audioPlayer.play().catch(fallbackSynthesizer);
+            document.getElementById(`card-${currentId}`).classList.add('video-playing');
+            document.getElementById(`videoPlayingBadge-${currentId}`)?.classList.remove('hidden');
+            document.getElementById('statusIndicator').innerText = "Playing Call...";
+
+            video.play().catch(err => {
+                console.warn("Video play error (possibly awaiting user gesture or codec):", err);
+            });
 
             clearInterval(ticker);
-            ticker = setInterval(updateProgress, 50);
+            ticker = setInterval(updateProgress, 60);
+
+            // Hook ended event
+            video.onended = () => {
+                pauseActiveVideo();
+                document.getElementById('progressBar').style.width = '100%';
+                document.getElementById('statusIndicator').innerText = "Completed";
+            };
         }
 
-        function pauseAudio() {
+        function pauseActiveVideo() {
             isPlaying = false;
+            const video = getActiveVideo();
+            if (video) video.pause();
+
             document.getElementById('playIcon').innerHTML = '<path d="M8 5v14l11-7z"/>';
-            audioPlayer.pause();
-            if ('speechSynthesis' in window) window.speechSynthesis.pause();
+            [1, 2, 3].forEach(i => {
+                document.getElementById(`card-${i}`).classList.remove('video-playing');
+                document.getElementById(`videoPlayingBadge-${i}`)?.classList.add('hidden');
+            });
+            document.getElementById('statusIndicator').innerText = "Paused";
             clearInterval(ticker);
         }
-
-        audioPlayer.addEventListener('ended', () => {
-            pauseAudio();
-            document.getElementById('progressBar').style.width = '100%';
-        });
 
         function updateProgress() {
+            const video = getActiveVideo();
             const data = callsData[currentId];
-            const current = audioPlayer.currentTime;
-            const total = audioPlayer.duration && !isNaN(audioPlayer.duration) ? audioPlayer.duration : data.duration;
+            if (!video) return;
+
+            const current = video.currentTime;
+            const total = video.duration && !isNaN(video.duration) ? video.duration : data.duration;
             const pct = Math.min(100, (current / total) * 100);
             
             document.getElementById('progressBar').style.width = `${pct}%`;
             document.getElementById('activeCallTimer').innerText = `${formatTime(current)} / ${formatTime(total)}`;
         }
 
-        function seekAudio(e) {
+        function seekVideo(e) {
+            const video = getActiveVideo();
             const data = callsData[currentId];
+            if (!video) return;
+
             const rect = e.currentTarget.getBoundingClientRect();
             const pct = (e.clientX - rect.left) / rect.width;
-            audioPlayer.currentTime = pct * (audioPlayer.duration || data.duration);
-            if (isPlaying) audioPlayer.play().catch(fallbackSynthesizer);
+            const total = video.duration && !isNaN(video.duration) ? video.duration : data.duration;
+            video.currentTime = pct * total;
             updateProgress();
+            if (!isPlaying) {
+                playActiveVideo();
+            }
         }
 
         function formatTime(s) {
@@ -353,19 +470,7 @@
             document.getElementById('reflexFeedback').classList.remove('flex');
         }
 
-        function fallbackSynthesizer(err) {
-            console.warn("Audio file missing; fallback speech running:", err);
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const data = callsData[currentId];
-                const utterance = new SpeechSynthesisUtterance(data.quote.replace(/["']/g, ''));
-                utterance.rate = 0.95;
-                utterance.onend = () => pauseAudio();
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        // Initialize Call 1 on load
+        // Initialize setup on window load
         window.addEventListener('DOMContentLoaded', () => {
             selectPatient(1);
         });
