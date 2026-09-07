@@ -71,14 +71,14 @@
 
             <!-- Top Row: Call 1 (Brenda) Centered -->
             <div class="flex justify-center w-full">
-                <div onclick="selectPatient(1)" id="card-1"
+                <div onclick="handleCardTap(1)" id="card-1"
                      class="patient-card patient-card-active group relative w-full sm:w-80 md:w-84 h-56 sm:h-60 rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-md">
                     
                     <!-- Video Element with Poster Fallback -->
                     <video id="video-1" 
                            playsinline 
                            webkit-playsinline 
-                           preload="metadata"
+                           preload="auto"
                            poster="./call1_brenda.jpeg"
                            class="w-full h-full object-cover object-center transition-opacity duration-300">
                         <source src="./call1_brenda.mp4" type="video/mp4">
@@ -118,13 +118,13 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
 
                 <!-- Left: Call 2 (David) -->
-                <div onclick="selectPatient(2)" id="card-2"
+                <div onclick="handleCardTap(2)" id="card-2"
                      class="patient-card group relative w-full h-56 sm:h-64 md:h-full min-h-[230px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-md">
                     
                     <video id="video-2" 
                            playsinline 
                            webkit-playsinline 
-                           preload="metadata"
+                           preload="auto"
                            poster="./call2_david.jpeg"
                            class="w-full h-full object-cover object-center transition-opacity duration-300">
                         <source src="./call2_david.mp4" type="video/mp4">
@@ -230,13 +230,13 @@
                 </div>
 
                 <!-- Right: Call 3 (Gemma) -->
-                <div onclick="selectPatient(3)" id="card-3"
+                <div onclick="handleCardTap(3)" id="card-3"
                      class="patient-card group relative w-full h-56 sm:h-64 md:h-full min-h-[230px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-md">
                     
                     <video id="video-3" 
                            playsinline 
                            webkit-playsinline 
-                           preload="metadata"
+                           preload="auto"
                            poster="./call3_gemma.jpeg"
                            class="w-full h-full object-cover object-center transition-opacity duration-300">
                         <source src="./call3_gemma.mp4" type="video/mp4">
@@ -324,7 +324,17 @@
             return document.getElementById(`video-${currentId}`);
         }
 
-        function selectPatient(id) {
+        function handleCardTap(id) {
+            if (currentId === id) {
+                // If this patient is already active, tapping the card toggles play / pause
+                togglePlay();
+            } else {
+                // If selecting a new patient, select and immediately play their video
+                selectPatient(id, true);
+            }
+        }
+
+        function selectPatient(id, autoPlay = false) {
             if (currentId !== id) {
                 pauseActiveVideo();
                 const prevVideo = getActiveVideo();
@@ -356,9 +366,14 @@
             document.getElementById('progressBar').style.width = '0%';
             const dur = activeVideo && activeVideo.duration && !isNaN(activeVideo.duration) ? activeVideo.duration : data.duration;
             document.getElementById('activeCallTimer').innerText = `00:00 / ${formatTime(dur)}`;
-            document.getElementById('statusIndicator').innerText = "Ready to Play";
+            document.getElementById('statusIndicator').innerText = autoPlay ? "Loading Video..." : "Ready to Play";
 
             resetReflex();
+
+            // Immediately load and play the video upon user tap
+            if (autoPlay) {
+                playActiveVideo();
+            }
         }
 
         function togglePlay() {
@@ -472,7 +487,8 @@
 
         // Initialize setup on window load
         window.addEventListener('DOMContentLoaded', () => {
-            selectPatient(1);
+            // Initial setup without autoplay to conform with browser gesture requirements
+            selectPatient(1, false);
         });
     </script>
 </body>
