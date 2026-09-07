@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Opening Encounters • Proactive Outreach</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0C2340',
+                        trust: '#005EB8',
+                        orange: '#FE5000',
+                        slate: '#333F48',
+                        ice: '#DBE2E9',
+                        cream: '#FBFBFB'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { display: none; }
+        * { scrollbar-width: none; }
+
+        .patient-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .patient-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px -5px rgba(12, 35, 64, 0.15);
+        }
+        .patient-card-active {
+            border-color: #FE5000 !important;
+            box-shadow: 0 0 0 3px rgba(254, 80, 0, 0.25), 0 12px 28px -6px rgba(12, 35, 64, 0.2) !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-50/60 text-slate font-sans p-3 sm:p-5 md:p-6 flex items-center justify-center min-h-full">
+
+    <div class="w-full max-w-5xl mx-auto flex flex-col space-y-4 sm:space-y-5">
+
+        <!-- Top Header Ribbon -->
+        <div class="flex items-center justify-between px-1">
+            <div class="flex items-center space-x-2.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-orange animate-pulse"></span>
+                <span class="text-xs font-bold uppercase tracking-wider text-navy">Phase 1: Concrete Experience • Three Opening Encounters</span>
+            </div>
+            <div class="text-[11px] font-medium text-slate/60 hidden sm:block">
+                Tap a patient card to trigger the first 10 seconds
+            </div>
+        </div>
+
+        <!-- Inverted-T Grid Layout Matching Diagram -->
+        <div class="flex flex-col space-y-4">
+
+            <!-- Top Row: Call 1 (Brenda) Centered -->
+            <div class="flex justify-center w-full">
+                <div onclick="selectPatient(1)" id="card-1"
+                     class="patient-card patient-card-active relative w-full sm:w-80 md:w-84 h-52 sm:h-56 rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy/5 shadow-md">
+                    <img src="./call1_brenda.jpeg" 
+                         onerror="if (!this.dataset.retried) { this.dataset.retried = 1; this.src='./call1_brenda.JPEG'; } else { this.onerror=null; this.src='https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=700&q=80'; }"
+                         alt="Call 1: Brenda" 
+                         class="w-full h-full object-cover object-top">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/30 to-transparent"></div>
+                    
+                    <!-- Text Overlay -->
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-orange text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-sm">
+                            Call 01
+                        </span>
+                    </div>
+
+                    <div class="absolute bottom-3 left-3 right-3 text-white">
+                        <div class="text-sm sm:text-base font-bold leading-tight">Brenda • Weight Management</div>
+                        <div class="text-[11px] text-ice/85 mt-0.5 flex items-center justify-between">
+                            <span>Unsolicited Outreach Flag</span>
+                            <span class="text-orange font-semibold">Tap to Load</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Row: 3-Column Layout (David | The Box In Between | Gemma) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+
+                <!-- Left: Call 2 (David) -->
+                <div onclick="selectPatient(2)" id="card-2"
+                     class="patient-card relative w-full h-56 sm:h-64 md:h-full min-h-[220px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy/5 shadow-md">
+                    <img src="./call2_david.jpeg" 
+                         onerror="if (!this.dataset.retried) { this.dataset.retried = 1; this.src='./call2_david.JPEG'; } else { this.onerror=null; this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=700&q=80'; }"
+                         alt="Call 2: David" 
+                         class="w-full h-full object-cover object-center">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/30 to-transparent"></div>
+                    
+                    <!-- Text Overlay -->
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-trust text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-sm">
+                            Call 02
+                        </span>
+                    </div>
+
+                    <div class="absolute bottom-3 left-3 right-3 text-white">
+                        <div class="text-sm sm:text-base font-bold leading-tight">David • Multimorbidity (LTC)</div>
+                        <div class="text-[11px] text-ice/85 mt-0.5 flex items-center justify-between">
+                            <span>Care Coordinator Suspicion</span>
+                            <span class="text-ice/90 font-semibold">Tap to Load</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center: THE BOX IN BETWEEN (Interactive Telemetry & Reflex Logger) -->
+                <div class="bg-white border border-ice rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col justify-between min-h-[260px] md:min-h-[300px]">
+                    
+                    <div>
+                        <!-- Active Call Label -->
+                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-ice/70">
+                            <span id="activeCallBadge" class="text-[10px] font-bold uppercase tracking-wider text-orange">
+                                Active Encounter
+                            </span>
+                            <span id="activeCallTimer" class="font-mono text-xs text-slate/60">00:00 / 00:09</span>
+                        </div>
+
+                        <!-- Spoken Quote Block -->
+                        <div class="bg-slate-50 border-l-4 border-orange p-3 rounded-r-lg mb-3">
+                            <div class="text-[11px] font-bold uppercase tracking-wide text-slate/50 mb-1">
+                                Patient Pushback:
+                            </div>
+                            <p id="activeQuote" class="text-xs sm:text-sm font-medium text-navy leading-relaxed italic">
+                                "Look... I'm not interested. My weight is my business. I don't know why you're calling me out of the blue, just take my name off whatever list you're looking at."
+                            </p>
+                        </div>
+
+                        <!-- Audio Playback Controls -->
+                        <div class="flex items-center space-x-3 mb-4">
+                            <button id="playBtn" onclick="togglePlay()" 
+                                    class="w-10 h-10 rounded-full bg-navy hover:bg-trust text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm cursor-pointer shrink-0">
+                                <svg id="playIcon" class="w-4 h-4 ml-0.5 fill-current" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                            </button>
+                            <div class="flex-1">
+                                <div class="w-full bg-ice/80 rounded-full h-2 overflow-hidden cursor-pointer" onclick="seekAudio(event)">
+                                    <div id="progressBar" class="bg-orange h-full w-0 transition-all duration-100"></div>
+                                </div>
+                                <div class="text-[10px] text-slate/50 mt-1">Click play to hear vocal cadence</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Reflex Choice Area -->
+                    <div id="reflexContainer" class="pt-2 border-t border-ice/70">
+                        <div id="reflexPrompt">
+                            <div class="text-xs font-bold text-navy mb-2">What is your immediate gut reaction?</div>
+                            <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
+                                <button onclick="logReflex('Defend')" class="px-2 py-1.5 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center">
+                                    Defend
+                                </button>
+                                <button onclick="logReflex('Retreat')" class="px-2 py-1.5 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center">
+                                    Retreat
+                                </button>
+                                <button onclick="logReflex('Freeze')" class="px-2 py-1.5 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center">
+                                    Freeze
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Debrief Feedback -->
+                        <div id="reflexFeedback" class="hidden flex-col space-y-1.5">
+                            <div class="text-[11px] font-bold text-orange uppercase tracking-wider flex items-center justify-between">
+                                <span>Reflex: <strong id="loggedName" class="text-navy"></strong></span>
+                                <button onclick="resetReflex()" class="text-[10px] underline text-trust font-normal cursor-pointer">Change</button>
+                            </div>
+                            <p id="debriefText" class="text-[11px] sm:text-xs text-slate leading-snug"></p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right: Call 3 (Gemma) -->
+                <div onclick="selectPatient(3)" id="card-3"
+                     class="patient-card relative w-full h-56 sm:h-64 md:h-full min-h-[220px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy/5 shadow-md">
+                    <img src="./call3_gemma.jpeg" 
+                         onerror="if (!this.dataset.retried) { this.dataset.retried = 1; this.src='./call3_gemma.JPEG'; } else { this.onerror=null; this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=700&q=80'; }"
+                         alt="Call 3: Gemma" 
+                         class="w-full h-full object-cover object-top">
+                    <div class="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/30 to-transparent"></div>
+                    
+                    <!-- Text Overlay -->
+                    <div class="absolute top-3 left-3">
+                        <span class="bg-slate/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-sm">
+                            Call 03
+                        </span>
+                    </div>
+
+                    <div class="absolute bottom-3 left-3 right-3 text-white">
+                        <div class="text-sm sm:text-base font-bold leading-tight">Gemma • Lifestyle Audit</div>
+                        <div class="text-[11px] text-ice/85 mt-0.5 flex items-center justify-between">
+                            <span>Humiliation & Identity Crack</span>
+                            <span class="text-ice/90 font-semibold">Tap to Load</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const callsData = {
+            1: {
+                title: "Call 01 • Brenda (Weight Management)",
+                audioSrc: "./HD_P1_02_Patient_Call1_Weight.wav",
+                quote: "\"Look... I'm not interested. My weight is my business. I don't know why you're calling me about this out of the blue, just take my name off whatever list you're looking at.\"",
+                duration: 9.0,
+                debriefs: {
+                    Defend: "You instinctively felt the urge to explain that the practice flagged her for proactive care. Explaining clinical protocol sounds like an argument to someone feeling judged.",
+                    Retreat: "You felt like apologising and logging 'Refused'. That avoids the immediate friction, but abandons her without care.",
+                    Freeze: "Her sharp dismissal caught you off guard. Freezing is your nervous system's response to unexpected hostility."
+                }
+            },
+            2: {
+                title: "Call 02 • David (Multimorbidity LTC)",
+                audioSrc: "./HD_P1_03_Patient_Call2_LTC.wav",
+                quote: "\"Hang on a minute. A care coordinator? What is that? I've been seeing Dr. Evans for fifteen years. Now I'm passed off to someone who isn't even a doctor? I want my GP.\"",
+                duration: 11.5,
+                debriefs: {
+                    Defend: "You wanted to justify your credentials or role. David is afraid of losing access to the doctor he trusts; debating credentials increases that fear.",
+                    Retreat: "You wanted to offer to put him back on the standard GP queue. It ends the call smoothly, but bypasses multidisciplinary support.",
+                    Freeze: "'Not even a doctor' stings. The pause is your ego processing the role dismissal before clinical thinking resumes."
+                }
+            },
+            3: {
+                title: "Call 03 • Gemma (Lifestyle Audit / Shame)",
+                audioSrc: "./HD_P1_04_Patient_Call3_Shame.wav",
+                quote: "\"I can't believe this... Is this what the surgery does now? Monitors what I eat? This is completely humiliating. I work full time and you're treating me like a child!\"",
+                duration: 9.8,
+                debriefs: {
+                    Defend: "You wanted to reassure her that 'we aren't judging you.' Denying someone's shame often makes them feel even more patronised.",
+                    Retreat: "You wanted to hang up because her emotional crack felt painful. Shame frequently hides behind angry defiance.",
+                    Freeze: "The raw distress in her voice created silence. Sitting calmly with shame without reacting defensively requires high clinical presence."
+                }
+            }
+        };
+
+        let currentId = 1;
+        let audioPlayer = new Audio();
+        let isPlaying = false;
+        let ticker = null;
+
+        function selectPatient(id) {
+            currentId = id;
+            const data = callsData[id];
+
+            // Update card borders
+            [1, 2, 3].forEach(i => {
+                const el = document.getElementById(`card-${i}`);
+                if (i === id) el.classList.add('patient-card-active');
+                else el.classList.remove('patient-card-active');
+            });
+
+            // Update Center Box Telemetry
+            document.getElementById('activeCallBadge').innerText = data.title;
+            document.getElementById('activeQuote').innerText = data.quote;
+            
+            // Audio reset
+            pauseAudio();
+            audioPlayer.src = data.audioSrc;
+            document.getElementById('progressBar').style.width = '0%';
+            document.getElementById('activeCallTimer').innerText = `00:00 / ${formatTime(data.duration)}`;
+
+            resetReflex();
+        }
+
+        function togglePlay() {
+            if (isPlaying) pauseAudio();
+            else playAudio();
+        }
+
+        function playAudio() {
+            isPlaying = true;
+            document.getElementById('playIcon').innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+            audioPlayer.play().catch(fallbackSynthesizer);
+
+            clearInterval(ticker);
+            ticker = setInterval(updateProgress, 50);
+        }
+
+        function pauseAudio() {
+            isPlaying = false;
+            document.getElementById('playIcon').innerHTML = '<path d="M8 5v14l11-7z"/>';
+            audioPlayer.pause();
+            if ('speechSynthesis' in window) window.speechSynthesis.pause();
+            clearInterval(ticker);
+        }
+
+        audioPlayer.addEventListener('ended', () => {
+            pauseAudio();
+            document.getElementById('progressBar').style.width = '100%';
+        });
+
+        function updateProgress() {
+            const data = callsData[currentId];
+            const current = audioPlayer.currentTime;
+            const total = audioPlayer.duration && !isNaN(audioPlayer.duration) ? audioPlayer.duration : data.duration;
+            const pct = Math.min(100, (current / total) * 100);
+            
+            document.getElementById('progressBar').style.width = `${pct}%`;
+            document.getElementById('activeCallTimer').innerText = `${formatTime(current)} / ${formatTime(total)}`;
+        }
+
+        function seekAudio(e) {
+            const data = callsData[currentId];
+            const rect = e.currentTarget.getBoundingClientRect();
+            const pct = (e.clientX - rect.left) / rect.width;
+            audioPlayer.currentTime = pct * (audioPlayer.duration || data.duration);
+            if (isPlaying) audioPlayer.play().catch(fallbackSynthesizer);
+            updateProgress();
+        }
+
+        function formatTime(s) {
+            const m = String(Math.floor(s / 60)).padStart(2, '0');
+            const sec = String(Math.floor(s % 60)).padStart(2, '0');
+            return `${m}:${sec}`;
+        }
+
+        function logReflex(reaction) {
+            const data = callsData[currentId];
+            document.getElementById('reflexPrompt').classList.add('hidden');
+            document.getElementById('reflexFeedback').classList.remove('hidden');
+            document.getElementById('reflexFeedback').classList.add('flex');
+            document.getElementById('loggedName').innerText = reaction;
+            document.getElementById('debriefText').innerText = data.debriefs[reaction];
+        }
+
+        function resetReflex() {
+            document.getElementById('reflexPrompt').classList.remove('hidden');
+            document.getElementById('reflexFeedback').classList.add('hidden');
+            document.getElementById('reflexFeedback').classList.remove('flex');
+        }
+
+        function fallbackSynthesizer(err) {
+            console.warn("Audio file missing; fallback speech running:", err);
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const data = callsData[currentId];
+                const utterance = new SpeechSynthesisUtterance(data.quote.replace(/["']/g, ''));
+                utterance.rate = 0.95;
+                utterance.onend = () => pauseAudio();
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Initialize Call 1 on load
+        window.addEventListener('DOMContentLoaded', () => {
+            selectPatient(1);
+        });
+    </script>
+</body>
+</html>
