@@ -51,17 +51,17 @@
         }
     </style>
 </head>
-<body class="bg-slate-50/60 text-slate font-sans p-3 sm:p-5 md:p-6 flex items-center justify-center min-h-full">
+<body class="bg-slate-50/60 text-slate font-sans p-2 sm:p-4 md:p-6 lg:p-8 flex items-center justify-center min-h-screen w-full">
 
-    <div class="w-full max-w-5xl mx-auto flex flex-col space-y-4 sm:space-y-5">
+    <div class="w-full max-w-7xl mx-auto flex flex-col space-y-4 md:space-y-6">
 
         <!-- Inverted-T Grid Layout Matching Diagram -->
-        <div class="flex flex-col space-y-4">
+        <div class="flex flex-col space-y-4 md:space-y-6">
 
-            <!-- Top Row: Call 1 (Brenda) Centered -->
+            <!-- Top Row: Call 1 (Brenda) Centered & Scaled Up -->
             <div class="flex justify-center w-full">
                 <div onclick="handleCardTap(1)" id="card-1"
-                     class="patient-card patient-card-active group relative w-full sm:w-80 md:w-84 h-56 sm:h-60 rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-md">
+                     class="patient-card patient-card-active group relative w-full sm:w-[420px] md:w-[480px] lg:w-[540px] h-64 sm:h-72 md:h-80 lg:h-84 rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-lg">
                     
                     <!-- Video Element with Poster Fallback -->
                     <video id="video-1" 
@@ -76,26 +76,26 @@
                     <div class="card-overlay-gradient absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/35 to-transparent pointer-events-none transition-all duration-300"></div>
                     
                     <!-- Top Badge Overlay -->
-                    <div class="absolute top-3 left-3 flex items-center space-x-1.5 pointer-events-none">
-                        <span class="bg-orange text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-sm flex items-center space-x-1">
+                    <div class="absolute top-3.5 left-3.5 flex items-center space-x-2 pointer-events-none">
+                        <span class="bg-orange text-white text-xs font-bold uppercase px-3 py-1 rounded-md tracking-wider shadow-sm flex items-center space-x-1">
                             <span>Call 01</span>
                         </span>
-                        <span id="videoPlayingBadge-1" class="hidden bg-navy/80 backdrop-blur-xs text-white text-[9px] font-semibold px-2 py-1 rounded-md border border-white/20">
+                        <span id="videoPlayingBadge-1" class="hidden bg-navy/80 backdrop-blur-xs text-white text-[10px] font-semibold px-2.5 py-1 rounded-md border border-white/20">
                             PLAYING
                         </span>
                     </div>
 
                     <!-- Quick Play Overlay Icon -->
                     <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-90 transition-opacity" id="hoverPlay-1">
-                        <div class="w-12 h-12 rounded-full bg-navy/80 text-white flex items-center justify-center backdrop-blur-xs border border-white/20 shadow-lg">
-                            <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <div class="w-14 h-14 rounded-full bg-navy/85 text-white flex items-center justify-center backdrop-blur-xs border border-white/20 shadow-xl">
+                            <svg class="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
                     </div>
 
                     <!-- Bottom Details Overlay -->
-                    <div class="absolute bottom-3 left-3 right-3 text-white pointer-events-none">
-                        <div class="text-sm sm:text-base font-bold leading-tight drop-shadow-sm">Brenda • Weight Management</div>
-                        <div class="text-[11px] text-ice/90 mt-0.5 flex items-center justify-between">
+                    <div class="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
+                        <div class="text-base sm:text-lg lg:text-xl font-bold leading-tight drop-shadow-sm">Brenda • Weight Management</div>
+                        <div class="text-xs sm:text-sm text-ice/90 mt-1 flex items-center justify-between">
                             <span>Unsolicited Outreach Flag</span>
                             <span class="text-orange font-semibold tracking-wide">Active</span>
                         </div>
@@ -104,11 +104,11 @@
             </div>
 
             <!-- Bottom Row: 3-Column Layout (David | The Box In Between | Gemma) -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 items-stretch w-full">
 
                 <!-- Left: Call 2 (David) -->
                 <div onclick="handleCardTap(2)" id="card-2"
-                     class="patient-card group relative w-full h-56 sm:h-64 md:h-full min-h-[230px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-md">
+                     class="patient-card group relative w-full h-72 sm:h-80 md:h-auto min-h-[340px] md:min-h-[420px] lg:min-h-[460px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-lg">
                     
                     <video id="video-2" 
                            playsinline 
@@ -122,97 +122,97 @@
                     <div class="card-overlay-gradient absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/35 to-transparent pointer-events-none transition-all duration-300"></div>
                     
                     <!-- Text Overlay -->
-                    <div class="absolute top-3 left-3 flex items-center space-x-1.5 pointer-events-none">
-                        <span class="bg-trust text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-sm">
+                    <div class="absolute top-3.5 left-3.5 flex items-center space-x-2 pointer-events-none">
+                        <span class="bg-trust text-white text-xs font-bold uppercase px-3 py-1 rounded-md tracking-wider shadow-sm">
                             Call 02
                         </span>
-                        <span id="videoPlayingBadge-2" class="hidden bg-navy/80 backdrop-blur-xs text-white text-[9px] font-semibold px-2 py-1 rounded-md border border-white/20">
+                        <span id="videoPlayingBadge-2" class="hidden bg-navy/80 backdrop-blur-xs text-white text-[10px] font-semibold px-2.5 py-1 rounded-md border border-white/20">
                             PLAYING
                         </span>
                     </div>
 
                     <!-- Quick Play Overlay Icon -->
                     <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-90 transition-opacity" id="hoverPlay-2">
-                        <div class="w-12 h-12 rounded-full bg-navy/80 text-white flex items-center justify-center backdrop-blur-xs border border-white/20 shadow-lg">
-                            <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <div class="w-14 h-14 rounded-full bg-navy/85 text-white flex items-center justify-center backdrop-blur-xs border border-white/20 shadow-xl">
+                            <svg class="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
                     </div>
 
-                    <div class="absolute bottom-3 left-3 right-3 text-white pointer-events-none">
-                        <div class="text-sm sm:text-base font-bold leading-tight drop-shadow-sm">David • Multimorbidity (LTC)</div>
-                        <div class="text-[11px] text-ice/90 mt-0.5 flex items-center justify-between">
+                    <div class="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
+                        <div class="text-base sm:text-lg lg:text-xl font-bold leading-tight drop-shadow-sm">David • Multimorbidity (LTC)</div>
+                        <div class="text-xs sm:text-sm text-ice/90 mt-1 flex items-center justify-between">
                             <span>Care Coordinator Suspicion</span>
-                            <span class="text-ice/90 font-semibold">Tap to Load</span>
+                            <span class="text-ice/90 font-semibold">Tap to Play</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Center: THE BOX IN BETWEEN (Interactive Telemetry & Reflex Logger) -->
-                <div class="bg-white border border-ice rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col justify-between min-h-[280px] md:min-h-[310px]">
+                <div class="bg-white border border-ice rounded-2xl p-5 sm:p-6 lg:p-7 shadow-md flex flex-col justify-between min-h-[340px] md:min-h-[420px] lg:min-h-[460px]">
                     
-                    <div>
+                    <div class="space-y-3.5">
                         <!-- Active Call Label -->
-                        <div class="flex items-center justify-between pb-2 mb-2 border-b border-ice/70">
-                            <span id="activeCallBadge" class="text-[11px] font-bold uppercase tracking-wider text-orange">
+                        <div class="flex items-center justify-between pb-2.5 border-b border-ice/70">
+                            <span id="activeCallBadge" class="text-xs sm:text-sm font-bold uppercase tracking-wider text-orange">
                                 Call 01 • Brenda (Weight Management)
                             </span>
-                            <span id="activeCallTimer" class="font-mono text-xs text-slate/60">00:00 / 00:10</span>
+                            <span id="activeCallTimer" class="font-mono text-xs sm:text-sm text-slate/70 font-semibold">00:00 / 00:10</span>
                         </div>
 
                         <!-- Spoken Quote Block -->
-                        <div class="bg-slate-50 border-l-4 border-orange p-3 rounded-r-lg mb-3">
-                            <div class="text-[10px] font-bold uppercase tracking-wide text-slate/50 mb-1">
+                        <div class="bg-slate-50 border-l-4 border-orange p-3.5 sm:p-4 rounded-r-xl">
+                            <div class="text-[11px] sm:text-xs font-bold uppercase tracking-wide text-slate/50 mb-1.5">
                                 Spoken Pushback:
                             </div>
-                            <p id="activeQuote" class="text-xs sm:text-sm font-medium text-navy leading-relaxed italic">
+                            <p id="activeQuote" class="text-sm sm:text-base lg:text-lg font-medium text-navy leading-relaxed italic">
                                 "Look... I'm not interested. My weight is my business. I don't know why you're calling me out of the blue, just take my name off whatever list you're looking at."
                             </p>
                         </div>
 
                         <!-- Playback Controls -->
-                        <div class="flex items-center space-x-3 mb-3">
+                        <div class="flex items-center space-x-3.5 pt-1">
                             <button id="playBtn" onclick="togglePlay()" 
-                                    class="w-11 h-11 rounded-full bg-navy hover:bg-trust text-white flex items-center justify-center transition-transform active:scale-95 shadow-sm cursor-pointer shrink-0">
-                                <svg id="playIcon" class="w-4 h-4 ml-0.5 fill-current" viewBox="0 0 24 24">
+                                    class="w-12 h-12 lg:w-14 lg:h-14 rounded-full bg-navy hover:bg-trust text-white flex items-center justify-center transition-transform active:scale-95 shadow-md cursor-pointer shrink-0">
+                                <svg id="playIcon" class="w-5 h-5 lg:w-6 lg:h-6 ml-0.5 fill-current" viewBox="0 0 24 24">
                                     <path d="M8 5v14l11-7z"/>
                                 </svg>
                             </button>
                             <div class="flex-1">
-                                <div class="w-full bg-ice/80 rounded-full h-2.5 overflow-hidden cursor-pointer" onclick="seekVideo(event)">
+                                <div class="w-full bg-ice/80 rounded-full h-3 overflow-hidden cursor-pointer" onclick="seekVideo(event)">
                                     <div id="progressBar" class="bg-orange h-full w-0 transition-all duration-75"></div>
                                 </div>
-                                <div class="text-[10px] text-slate/50 mt-1 flex justify-between">
+                                <div class="text-[11px] sm:text-xs text-slate/55 mt-1.5 flex justify-between">
                                     <span>Watch facial micro-expressions & vocal cadence</span>
-                                    <span id="statusIndicator" class="font-medium text-slate/70">Ready</span>
+                                    <span id="statusIndicator" class="font-semibold text-slate/75">Ready</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Reflex Choice Area -->
-                    <div id="reflexContainer" class="pt-2 border-t border-ice/70">
+                    <div id="reflexContainer" class="pt-3.5 border-t border-ice/80 mt-3">
                         <div id="reflexPrompt">
-                            <div class="text-xs font-bold text-navy mb-2">What is your immediate gut reflex?</div>
-                            <div class="grid grid-cols-3 gap-1.5 sm:gap-2">
-                                <button onclick="logReflex('Defend')" class="px-2 py-2 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center cursor-pointer">
+                            <div class="text-xs sm:text-sm font-bold text-navy mb-2.5">What is your immediate gut reflex?</div>
+                            <div class="grid grid-cols-3 gap-2 sm:gap-3">
+                                <button onclick="logReflex('Defend')" class="px-3 py-2.5 rounded-xl border border-ice hover:border-navy hover:bg-navy hover:text-white text-xs sm:text-sm font-semibold text-navy transition-all text-center cursor-pointer shadow-2xs">
                                     Defend
                                 </button>
-                                <button onclick="logReflex('Retreat')" class="px-2 py-2 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center cursor-pointer">
+                                <button onclick="logReflex('Retreat')" class="px-3 py-2.5 rounded-xl border border-ice hover:border-navy hover:bg-navy hover:text-white text-xs sm:text-sm font-semibold text-navy transition-all text-center cursor-pointer shadow-2xs">
                                     Retreat
                                 </button>
-                                <button onclick="logReflex('Freeze')" class="px-2 py-2 rounded-lg border border-ice hover:border-navy hover:bg-navy hover:text-white text-[11px] font-semibold text-navy transition-all text-center cursor-pointer">
+                                <button onclick="logReflex('Freeze')" class="px-3 py-2.5 rounded-xl border border-ice hover:border-navy hover:bg-navy hover:text-white text-xs sm:text-sm font-semibold text-navy transition-all text-center cursor-pointer shadow-2xs">
                                     Freeze
                                 </button>
                             </div>
                         </div>
 
                         <!-- Debrief Feedback -->
-                        <div id="reflexFeedback" class="hidden flex-col space-y-1.5">
-                            <div class="text-[11px] font-bold text-orange uppercase tracking-wider flex items-center justify-between">
+                        <div id="reflexFeedback" class="hidden flex-col space-y-2">
+                            <div class="text-xs sm:text-sm font-bold text-orange uppercase tracking-wider flex items-center justify-between">
                                 <span>Logged Reflex: <strong id="loggedName" class="text-navy"></strong></span>
-                                <button onclick="resetReflex()" class="text-[10px] underline text-trust font-normal cursor-pointer">Re-evaluate</button>
+                                <button onclick="resetReflex()" class="text-xs underline text-trust font-medium cursor-pointer">Re-evaluate</button>
                             </div>
-                            <p id="debriefText" class="text-[11px] sm:text-xs text-slate leading-snug"></p>
+                            <p id="debriefText" class="text-xs sm:text-sm text-slate leading-relaxed"></p>
                         </div>
                     </div>
 
@@ -220,7 +220,7 @@
 
                 <!-- Right: Call 3 (Gemma) -->
                 <div onclick="handleCardTap(3)" id="card-3"
-                     class="patient-card group relative w-full h-56 sm:h-64 md:h-full min-h-[230px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-md">
+                     class="patient-card group relative w-full h-72 sm:h-80 md:h-auto min-h-[340px] md:min-h-[420px] lg:min-h-[460px] rounded-2xl overflow-hidden cursor-pointer border-2 border-transparent bg-navy shadow-lg">
                     
                     <video id="video-3" 
                            playsinline 
@@ -234,27 +234,27 @@
                     <div class="card-overlay-gradient absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/35 to-transparent pointer-events-none transition-all duration-300"></div>
                     
                     <!-- Text Overlay -->
-                    <div class="absolute top-3 left-3 flex items-center space-x-1.5 pointer-events-none">
-                        <span class="bg-slate/90 text-white text-[10px] font-bold uppercase px-2.5 py-1 rounded-md tracking-wider shadow-sm">
+                    <div class="absolute top-3.5 left-3.5 flex items-center space-x-2 pointer-events-none">
+                        <span class="bg-slate/90 text-white text-xs font-bold uppercase px-3 py-1 rounded-md tracking-wider shadow-sm">
                             Call 03
                         </span>
-                        <span id="videoPlayingBadge-3" class="hidden bg-navy/80 backdrop-blur-xs text-white text-[9px] font-semibold px-2 py-1 rounded-md border border-white/20">
+                        <span id="videoPlayingBadge-3" class="hidden bg-navy/80 backdrop-blur-xs text-white text-[10px] font-semibold px-2.5 py-1 rounded-md border border-white/20">
                             PLAYING
                         </span>
                     </div>
 
                     <!-- Quick Play Overlay Icon -->
                     <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-90 transition-opacity" id="hoverPlay-3">
-                        <div class="w-12 h-12 rounded-full bg-navy/80 text-white flex items-center justify-center backdrop-blur-xs border border-white/20 shadow-lg">
-                            <svg class="w-5 h-5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <div class="w-14 h-14 rounded-full bg-navy/85 text-white flex items-center justify-center backdrop-blur-xs border border-white/20 shadow-xl">
+                            <svg class="w-6 h-6 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         </div>
                     </div>
 
-                    <div class="absolute bottom-3 left-3 right-3 text-white pointer-events-none">
-                        <div class="text-sm sm:text-base font-bold leading-tight drop-shadow-sm">Gemma • Lifestyle Audit</div>
-                        <div class="text-[11px] text-ice/90 mt-0.5 flex items-center justify-between">
+                    <div class="absolute bottom-4 left-4 right-4 text-white pointer-events-none">
+                        <div class="text-base sm:text-lg lg:text-xl font-bold leading-tight drop-shadow-sm">Gemma • Lifestyle Audit</div>
+                        <div class="text-xs sm:text-sm text-ice/90 mt-1 flex items-center justify-between">
                             <span>Humiliation & Identity Threat</span>
-                            <span class="text-ice/90 font-semibold">Tap to Load</span>
+                            <span class="text-ice/90 font-semibold">Tap to Play</span>
                         </div>
                     </div>
                 </div>
